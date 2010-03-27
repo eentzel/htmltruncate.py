@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from htmltruncate import truncate
+import htmltruncate
 import unittest
 
 class TruncateTest(unittest.TestCase):
@@ -28,19 +28,19 @@ class TruncateTest(unittest.TestCase):
 
     def testTruncation(self):
         for input, count, output in self.cases:
-            self.assertEqual( truncate(input, count), output )
+            self.assertEqual( htmltruncate.truncate(input, count), output )
 
     def testUnbalanced(self):
-        self.assertEqual( truncate( 'I am a <b>bad</strong> little string with unbalanced tags', 20 ), -2 )
+        self.assertEqual( htmltruncate.truncate( 'I am a <b>bad</strong> little string with unbalanced tags', 20 ), htmltruncate.ERR_UNBALANCED )
 
     def testEntity(self):
-        self.assertEqual( truncate( "I&apos;m one", 3 ), "I&apos;m" )
+        self.assertEqual( htmltruncate.truncate( "I&apos;m one", 3 ), "I&apos;m" )
 
     def testSelfClosing(self):
-        self.assertEqual( truncate( "I need<br /> a break", 11 ), "I need<br /> a br" )
+        self.assertEqual( htmltruncate.truncate( "I need<br /> a break", 11 ), "I need<br /> a br" )
 
     def testEllipsis(self):
-        self.assertEqual( truncate('this <b>word</b> is bolded', 10, '...' ), "this <b>word</b> ...")
+        self.assertEqual( htmltruncate.truncate('this <b>word</b> is bolded', 10, '...' ), "this <b>word</b> ...")
 
 if __name__ == "__main__":
     unittest.main()
