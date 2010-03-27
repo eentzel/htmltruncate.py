@@ -94,6 +94,11 @@ class Tokenizer:
         return CloseTag( ''.join(tag) )
 
 def truncate(str, target_len, ellipsis = ''):
+    """Returns a copy of str truncated to target_len characters,
+    preserving HTML markup (which does not count towards the length).
+    Any tags that would be left open by truncation will be closed at
+    the end of the returned string.  Optionally append ellipsis if
+    the string was truncated."""
     stack = []   # open tags are pushed on here, then popped when the matching close tag is found
     retval = []  # string to be returned
     length = 0   # number of characters (not counting markup) placed in retval so far
