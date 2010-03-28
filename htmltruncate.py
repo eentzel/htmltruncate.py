@@ -1,10 +1,6 @@
 END = -1
 ERR_UNBALANCED = -2
 
-class Entity:
-    def __init__(self, entity):
-        self.entity = entity
-
 class OpenTag:
     def __init__(self, tag, rest=''):
         self.tag = tag
@@ -57,7 +53,7 @@ class Tokenizer:
             char = self.__next_char()
         entity.append(';')
         self.counter += 1
-        return Entity( ''.join(entity) )
+        return ''.join(entity)
         
     def __open_tag(self):
         """Return an open/close tag token.
@@ -116,9 +112,6 @@ def truncate(str, target_len, ellipsis = ''):
                 return ERR_UNBALANCED
         elif tok.__class__.__name__ == 'SelfClosingTag':
             retval.append( tok.as_string() )
-        elif tok.__class__.__name__ == 'Entity':
-            retval.append(tok.entity)
-            length += 1
         else:
             retval.append(tok)
             length += 1
