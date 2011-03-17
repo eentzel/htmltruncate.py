@@ -4,7 +4,9 @@ import sys
 
 
 END = -1
-ERR_UNBALANCED = -2
+
+class UnbalancedError(Exception):
+    pass
 
 class OpenTag:
     def __init__(self, tag, rest=''):
@@ -114,7 +116,7 @@ def truncate(str, target_len, ellipsis = ''):
                 stack.pop()
                 retval.append( tok.as_string() )
             else:
-                return ERR_UNBALANCED
+                raise UnbalancedError( tok.as_string() )
         elif tok.__class__.__name__ == 'SelfClosingTag':
             retval.append( tok.as_string() )
         else:
