@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+
+import sys
+
+
 END = -1
 ERR_UNBALANCED = -2
 
@@ -123,3 +128,10 @@ def truncate(str, target_len, ellipsis = ''):
         return ''.join(retval) + ellipsis
     else:
         return ''.join(retval)        
+
+if __name__ == "__main__":
+    try:
+        while True:
+            print truncate(raw_input("> "), int(sys.argv[1]))
+    except EOFError:
+        sys.exit(0)
