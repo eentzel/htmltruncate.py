@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/eentzel/htmltruncate.py.png)](https://travis-ci.org/eentzel/htmltruncate.py)
+
 A module to truncate strings containing HTML.
 
 htmltruncate.truncate(str, target_len, ellipsis='')
@@ -6,4 +8,3 @@ htmltruncate.truncate(str, target_len, ellipsis='')
     Any tags that would be left open by truncation will be closed at
     the end of the returned string.  Optionally append ellipsis if
     the string was truncated.
-
