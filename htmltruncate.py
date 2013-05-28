@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import sys
 
 
@@ -134,6 +135,6 @@ def truncate(str, target_len, ellipsis = ''):
 if __name__ == "__main__":
     try:
         while True:
-            print truncate(raw_input("> "), int(sys.argv[1]))
+            print(truncate(raw_input("> "), int(sys.argv[1])))
     except EOFError:
         sys.exit(0)
