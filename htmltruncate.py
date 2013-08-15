@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from __future__ import print_function
 import sys
 
 
@@ -16,14 +15,14 @@ class OpenTag:
 
     def as_string(self):
         return '<' + self.tag + self.rest + '>'
-        
+
 class CloseTag(OpenTag):
     def as_string(self):
         return '</' + self.tag + '>'
 
 class SelfClosingTag(OpenTag):
     pass
-    
+
 class Tokenizer:
     def __init__(self, input):
         self.input = input
@@ -32,7 +31,7 @@ class Tokenizer:
     def __next_char(self):
         self.counter += 1
         return self.input[self.counter]
-        
+
     def next_token(self):
         try:
             char = self.input[self.counter]
@@ -62,7 +61,7 @@ class Tokenizer:
         entity.append(';')
         self.counter += 1
         return ''.join(entity)
-        
+
     def __open_tag(self):
         """Return an open/close tag token.
         Precondition: self.counter points at the first character of the tag name
@@ -130,7 +129,7 @@ def truncate(str, target_len, ellipsis = ''):
     if length == target_len:
         return ''.join(retval) + ellipsis
     else:
-        return ''.join(retval)        
+        return ''.join(retval)
 
 if __name__ == "__main__":
     try:
