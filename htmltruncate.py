@@ -96,7 +96,7 @@ class Tokenizer:
         self.counter += 1
         return CloseTag( ''.join(tag) )
 
-def truncate(str, target_len, ellipsis = ''):
+def truncate(str, target_len, full_word=False, ellipsis = ''):
     """Returns a copy of str truncated to target_len characters,
     preserving HTML markup (which does not count towards the length).
     Any tags that would be left open by truncation will be closed at
@@ -107,7 +107,7 @@ def truncate(str, target_len, ellipsis = ''):
     length = 0   # number of characters (not counting markup) placed in retval so far
     tokens = Tokenizer(str)
     tok = tokens.next_token()
-    while tok != END and length < target_len:
+    while tok != END:
         if tok.__class__.__name__ == 'OpenTag':
             stack.append(tok)
             retval.append( tok.as_string() )
@@ -123,10 +123,15 @@ def truncate(str, target_len, ellipsis = ''):
             retval.append(tok)
             length += 1
         tok = tokens.next_token()
+        if length == target_len and not full_word:
+            break
+        elif length >= target_len and full_word and tok == " ":
+            break
+
     while len(stack) > 0:
         tok = CloseTag( stack.pop().tag )
         retval.append( tok.as_string() )
-    if length == target_len:
+    if len(str) > length:
         return ''.join(retval) + ellipsis
     else:
         return ''.join(retval)
