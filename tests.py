@@ -42,5 +42,8 @@ class TruncateTest(unittest.TestCase):
     def testEllipsis(self):
         self.assertEqual( htmltruncate.truncate('this <b>word</b> is bolded', 10, ellipsis='...' ), "this <b>word</b> ...")
 
+    def testFullWord(self):
+        self.assertEqual( htmltruncate.truncate( "I need<br /> a break", 11, full_word=True ), "I need<br /> a break" )
+
 if __name__ == "__main__":
     unittest.main()
