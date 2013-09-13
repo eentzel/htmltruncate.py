@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/eentzel/htmltruncate.py.png)](https://travis-ci.org/eentzel/htmltruncate.py)
+[![Build Status](https://travis-ci.org/chadpaulson/htmltruncate.py.png)](https://travis-ci.org/chadpaulson/htmltruncate.py)
 
 A module to truncate strings containing HTML.
 
