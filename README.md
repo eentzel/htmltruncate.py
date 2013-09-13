@@ -1,12 +1,21 @@
-[![Build Status](https://travis-ci.org/chadpaulson/htmltruncate.py.png)](https://travis-ci.org/chadpaulson/htmltruncate.py)
+## htmltruncate
 
-A module to truncate strings containing HTML.
+[![Build Status](https://travis-ci.org/chadpaulson/htmltruncate.png)](https://travis-ci.org/chadpaulson/htmltruncate.py)
+
+Returns a truncated string while preserving HTML markup (which does not count towards length). All tags left open by truncation are closed.
+
+**Example**:
 
 ```python
-htmltruncate.truncate(str, target_len, ellipsis='')
+>>> import htmltruncate
+>>> str = "<p>You're not gonna lose the house, <b>everybody</b> has three mortgages nowadays.</p>"
+>>> htmltruncate.truncate(str, 33)
+"<p>You're not gonna lose the house, </p>"
 ```
-    Returns a copy of str truncated to target_len characters,
-    preserving HTML markup (which does not count towards the length).
-    Any tags that would be left open by truncation will be closed at
-    the end of the returned string.  Optionally append ellipsis if
-    the string was truncated.
+
+**Options**:
+
+```python
+>>> htmltruncate.truncate(str, 33, full_word=True, ellipsis="...")
+"<p>You're not gonna lose the house, <b>everybody</b></p>..."
+```
