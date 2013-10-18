@@ -108,7 +108,10 @@ def truncate(str, target_len, ellipsis = ''):
     length = 0   # number of characters (not counting markup) placed in retval so far
     tokens = Tokenizer(str)
     tok = tokens.next_token()
-    while tok != END and length < target_len:
+    while tok != END:
+        if not length < target_len:
+            retval.append(ellipsis)
+            break
         if tok.__class__.__name__ == 'OpenTag':
             stack.append(tok)
             retval.append( tok.as_string() )
@@ -127,10 +130,7 @@ def truncate(str, target_len, ellipsis = ''):
     while len(stack) > 0:
         tok = CloseTag( stack.pop().tag )
         retval.append( tok.as_string() )
-    if length == target_len:
-        return ''.join(retval) + ellipsis
-    else:
-        return ''.join(retval)
+    return ''.join(retval)
 
 if __name__ == "__main__":
     try:
