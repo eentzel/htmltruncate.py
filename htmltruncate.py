@@ -22,7 +22,7 @@
 
 from __future__ import print_function
 import sys
-
+import re
 
 END = -1
 
@@ -123,16 +123,20 @@ def truncate(str, target_len, ellipsis = ''):
     Any tags that would be left open by truncation will be closed at
     the end of the returned string.  Optionally append ellipsis if
     the string was truncated."""
+    # Check if the input str is short enough already. If so, we can just
+    # return it.
+    str_with_no_html = re.sub(r'<\w+\/>', '', re.sub(r'<\/?\w+>', '', str))
+    if len(str_with_no_html) <= target_len:
+        return str
+
     stack = []   # open tags are pushed on here, then popped when the matching close tag is found
     retval = []  # string to be returned
     length = 0   # number of characters (not counting markup) placed in retval so far
     tokens = Tokenizer(str)
     tok = tokens.next_token()
     while tok != END:
-        if length > target_len:
+        if not length < target_len:
             retval.append(ellipsis)
-            break
-        if length == target_len:
             break
         if tok.__class__.__name__ == 'OpenTag':
             stack.append(tok)
