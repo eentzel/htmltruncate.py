@@ -65,5 +65,10 @@ class TruncateTest(unittest.TestCase):
     def testSurrounding(self):
         self.assertEqual( htmltruncate.truncate('<p>this paragraph should be cut in half</p>', 11, '...' ), "<p>this paragr...</p>")
 
+    def testNoEllipsisIfStrHasExactlyCountChars(self):
+        html = "<p>precisely 18 chars</p>"
+        res = htmltruncate.truncate(html, 18, ellipsis='...')
+        self.assertEqual(res, html)
+
 if __name__ == "__main__":
     unittest.main()
