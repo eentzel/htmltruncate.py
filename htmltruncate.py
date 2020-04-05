@@ -25,6 +25,9 @@ import sys
 
 
 END = -1
+
+# HTML5 void-elements that do not require a closing tag
+# https://html.spec.whatwg.org/multipage/syntax.html#void-elements
 VOID_ELEMENTS = ('area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
                  'link', 'meta', 'param', 'source', 'track', 'wbr')
 
