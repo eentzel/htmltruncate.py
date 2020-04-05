@@ -65,5 +65,8 @@ class TruncateTest(unittest.TestCase):
     def testSurrounding(self):
         self.assertEqual( htmltruncate.truncate('<p>this paragraph should be cut in half</p>', 11, '...' ), "<p>this paragr...</p>")
 
+    def testVoidElements(self):
+        self.assertEqual( htmltruncate.truncate( "<a href='http://www.example.com'>I need<br> a break</a> one more time.", 17 ), "<a href='http://www.example.com'>I need<br> a break</a> on" )
+
 if __name__ == "__main__":
     unittest.main()
