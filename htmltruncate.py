@@ -26,6 +26,11 @@ import sys
 
 END = -1
 
+# HTML5 void-elements that do not require a closing tag
+# https://html.spec.whatwg.org/multipage/syntax.html#void-elements
+VOID_ELEMENTS = ('area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+                 'link', 'meta', 'param', 'source', 'track', 'wbr')
+
 class UnbalancedError(Exception):
     pass
 
@@ -98,6 +103,9 @@ class Tokenizer:
             rest.append(char)
             char = self.__next_char()
         if self.input[self.counter - 1] == '/':
+            self.counter += 1
+            return SelfClosingTag( ''.join(tag), ''.join(rest) )
+        elif ''.join(tag) in VOID_ELEMENTS:
             self.counter += 1
             return SelfClosingTag( ''.join(tag), ''.join(rest) )
         else:
