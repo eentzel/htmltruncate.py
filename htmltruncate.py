@@ -26,6 +26,12 @@ import sys
 
 END = -1
 
+# https://www.w3.org/TR/2011/WD-html5-20110525/common-microsyntaxes.html#space-character
+# The space characters, for the purposes of this specification, are
+# U+0020 SPACE, U+0009 CHARACTER TABULATION (tab), U+000A LINE FEED (LF),
+# U+000C FORM FEED (FF), and U+000D CARRIAGE RETURN (CR).
+HTML_TAG_WHITESPACE_CHARS = ('\u0020', '\u0009', '\u000A', '\u000C', '\u000D')
+
 # HTML5 void-elements that do not require a closing tag
 # https://html.spec.whatwg.org/multipage/syntax.html#void-elements
 VOID_ELEMENTS = ('area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
@@ -96,7 +102,7 @@ class Tokenizer:
         char = self.input[self.counter]
         tag = []
         rest = []
-        while char != '>' and char != ' ':
+        while char != '>' and not char in HTML_TAG_WHITESPACE_CHARS:
             tag.append(char)
             char = self.__next_char()
         while char != '>':
