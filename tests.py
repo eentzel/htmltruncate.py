@@ -44,7 +44,13 @@ class TruncateTest(unittest.TestCase):
               ("<span>This</span> is a test of the truncating features in EDCZ please use <span>with caution</span>", 65,
                "<span>This</span> is a test of the truncating features in EDCZ please use <span>with</span>"),
               ("And this baby right here is the special last line that get's chopped a little shorter", 55,
-               "And this baby right here is the special last line that ") )
+               "And this baby right here is the special last line that "),
+              ("This <span\nclass=\"hello\" id=\"id\">tag</span> is split by a new line just after the tag name", 7,
+               "This <span\nclass=\"hello\" id=\"id\">ta</span>"),
+              ("This <span\nclass=\"hello\" id=\"id\">tag</span> is split by a new line just after the tag name", 17,
+               "This <span\nclass=\"hello\" id=\"id\">tag</span> is split"),
+              ("These tags: <b >space</b>, <b\t>tab</b>, <b\n>LF</b>, <b\r>CR</b>, <b\f>FF</b>, are split by all the admissible whitespace characters just after the tag name", 45,
+               "These tags: <b >space</b>, <b\t>tab</b>, <b\n>LF</b>, <b\r>CR</b>, <b\f>FF</b>, are split") )
 
     def testTruncation(self):
         for input, count, output in self.cases:
